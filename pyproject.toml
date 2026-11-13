@@ -1,0 +1,50 @@
+[project]
+name = "alignment"
+version = "1.0.0"
+description = "CS 336 Spring 2026 Assignment 5: Reasoning RL"
+readme = "README.md"
+requires-python = ">=3.12,<3.13"  # Python 3.13 not yet supported for some deps
+dependencies = [
+    "accelerate>=1.5.2",
+    "math-verify[antlr4-13-2]>=0.7.0",
+    "modal>=1.1.0",
+    "pytest>=8.3.5",
+    "pylatexenc>=2.10",
+    "torch",
+    "transformers>=4.50.0",
+    "typer>=0.15.4",
+    "xopen>=2.0.2",
+]
+
+
+[project.optional-dependencies]
+gpu = [
+    "torch",
+]
+plots = [
+    "wandb>=0.26.0",
+]
+
+[tool.setuptools.packages.find]
+include = ["cs336_alignment*"]
+
+[tool.uv]
+package = true
+environments = [
+    "sys_platform == 'darwin' and platform_machine == 'arm64'",
+    "sys_platform == 'linux' and platform_machine == 'x86_64'",
+]
+
+# [tool.uv.sources]
+# torch = [
+#     { index = "pytorch-cu129", extra = "gpu", marker = "sys_platform == 'linux'" },
+# ]
+# [[tool.uv.index]]
+# name = "pytorch-cu129"
+# url = "https://download.pytorch.org/whl/cu129"
+# explicit = true
+
+[tool.pytest.ini_options]
+log_cli = true
+log_cli_level = "WARNING"
+testpaths = ["tests"]
